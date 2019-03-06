@@ -33,7 +33,7 @@ $(function () {
 
 // this targets when one of the buttons is pressed//
 $(document).on("click", ".searchButton", function () {
-
+    $("#results")
     var type = $(this).data("type");
 
     // console.log(type);
@@ -44,19 +44,39 @@ $(document).on("click", ".searchButton", function () {
 
     //AJAX call//
     $.ajax({
-        url: queryURL,
+        url:queryURL,
         method: "GET"
     })
         .then(function (response) {
-            // console.log(response);
+            console.log(response);
             //for loop to display gifs in html document/
-            for(var i= 0; i<response.data.length; i++){
+            for (var i = 0; i < response.data.length; i++) {
                 //create a new div for gif picture//
                 var gifDiv = $("<div class='gif-item'>");
                 //var that calls the rating of gif
                 var rating = response.data[i].rating;
                 //var that shows the rating on a <p> tag in the html document//
-                var showRating = $("<p>").text("Rating: "+rating);
+                var showRating = $("<p>").text("Rating: " + rating);
+                //var that will create a <img> tag where the gif will be apppended to//
+                var gifPic = $("<img>");
+                //variable for animated and still state for gif image//
+                var animated = response.data[i].images.fixed_height.url;
+                var still = response.data[i].images.fixed_height_still.url;
+                //attributes for gifPic//
+                gifPic.attr("src", still);
+                gifPic.attr("data-still", still);
+                gifPic.attr("data-animated", animated);
+                gifPic.attr("data-state", "still");
+                 
+                //I decided to add 
+                gifPic.addClass("resultGif");
+            
+                //this wil append the gif and rating into the html doc//
+                gifDiv.append(showRating);
+                gifDiv.append(gifPic);
+
+
+                $("#results").append(gifDiv);
 
             }
 
