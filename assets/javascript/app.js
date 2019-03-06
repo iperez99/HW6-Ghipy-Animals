@@ -33,7 +33,9 @@ $(function () {
 
 // this targets when one of the buttons is pressed//
 $(document).on("click", ".searchButton", function () {
-    $("#results")
+    
+    $("#results").empty();
+
     var type = $(this).data("type");
 
     // console.log(type);
@@ -81,4 +83,13 @@ $(document).on("click", ".searchButton", function () {
             }
 
         })
+})
+
+
+$("#addButton").on("click", function(){
+
+    var newButton = $("input").eq(0).val();
+    initialSearch.push(newButton);
+    
+
 })
