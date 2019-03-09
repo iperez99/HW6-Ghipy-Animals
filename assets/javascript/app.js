@@ -85,11 +85,13 @@ $(document).on("click", ".searchButton", function () {
         })
 })
 
-
+$(document).on("click", "")
+// click event to add button from search//
 $("#addButton").on("click", function(){
 
     var newButton = $("input").eq(0).val();
     initialSearch.push(newButton);
-    
+    createButtons(initialSearch, "searchButton", "#buttons-list");
+    return false;
 
 })
