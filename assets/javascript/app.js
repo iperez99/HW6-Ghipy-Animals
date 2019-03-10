@@ -33,7 +33,7 @@ $(function () {
 
 // this targets when one of the buttons is pressed//
 $(document).on("click", ".searchButton", function () {
-    
+
     $("#results").empty();
 
     var type = $(this).data("type");
@@ -46,7 +46,7 @@ $(document).on("click", ".searchButton", function () {
 
     //AJAX call//
     $.ajax({
-        url:queryURL,
+        url: queryURL,
         method: "GET"
     })
         .then(function (response) {
@@ -69,25 +69,39 @@ $(document).on("click", ".searchButton", function () {
                 gifPic.attr("data-still", still);
                 gifPic.attr("data-animated", animated);
                 gifPic.attr("data-state", "still");
-                 
-                //I decided to add 
+
+                //add a class in the gifpic "<img>"  for element state manipulation//
                 gifPic.addClass("resultGif");
-            
+
                 //this wil append the gif and rating into the html doc//
                 gifDiv.append(showRating);
                 gifDiv.append(gifPic);
 
-
+                //this will append the search results on the html doc//
                 $("#results").append(gifDiv);
 
             }
 
         })
 })
+//animated and still function//
+$(document).on("click", ".resultGif", function () {
+    var state = $(this).attr("data-state");
+    if (state === "still") {
 
+        $(this).attr("src", $(this).data("animated"));
+        $(this).attr("data-state", "animated");
+    }
+    else{
+
+        $(this).attr("src", $(this).data("still"));
+        $(this).attr("data-state", "still");
+    }
+})
+//click event
 $(document).on("click", "")
 // click event to add button from search//
-$("#addButton").on("click", function(){
+$("#addButton").on("click", function () {
 
     var newButton = $("input").eq(0).val();
     initialSearch.push(newButton);
